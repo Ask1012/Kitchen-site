@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .order-details {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            margin-bottom: 20px;
+        }
+        .order-item {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kitchen Page</h1>
+
+    <div id="order-details-container">
+        <!-- Order details will be displayed here -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to handle POST requests
+            function handlePostRequest() {
+                // Check if the request method is POST
+                if (window.location.search.startsWith('?')) {
+                    // Extract query parameters
+                    const params = new URLSearchParams(window.location.search.substring(1));
+                    const orderDetails = JSON.parse(params.get('orderDetails'));
+                    
+                    // Display order details
+                    displayOrderDetails(orderDetails);
+                    
+                    // Example: Process the order (update database, send confirmation email, etc.)
+                    // Here, we're just logging to console for demonstration
+                    console.log('Order received:', orderDetails);
+                    
+                    // Example response (optional)
+                    const response = { status: 'Order received successfully!' };
+                    return JSON.stringify(response);
+                }
+            }
+
+            // Function to display order details
+            function displayOrderDetails(order) {
+                const container = document.getElementById('order-details-container');
+                container.innerHTML = '';
+
+                const orderInfo = document.createElement('div');
+                orderInfo.classList.add('order-details');
+
+                const orderTable = document.createElement('p');
+                orderTable.textContent = `Table: ${order.table}`;
+                orderInfo.appendChild(orderTable);
+
+                const orderItemsList = document.createElement('ul');
+                order.items.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${item.name} x ${item.quantity} - ₹${item.price * item.quantity}`;
+                    orderItemsList.appendChild(listItem);
+                });
+                orderInfo.appendChild(orderItemsList);
+
+                container.appendChild(orderInfo);
+            }
+
+            // Call handlePostRequest function on load
+            handlePostRequest();
+        });
+    </script>
+</body>
+</html
