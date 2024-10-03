@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Camera Example</title>
+    <title>Voice Command Example</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
         }
 
-        video {
-            width: 640px;
-            height: 480px;
-            border: 2px solid #007bff;
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
             border-radius: 10px;
-            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         button {
@@ -45,35 +44,56 @@
     </style>
 </head>
 <body>
-    <h1>Open Camera Example</h1>
-    <button id="openCameraButton">📷 Open Camera</button>
-    <video id="video" autoplay></video>
-    <p id="status">Click the button to start the camera...</p>
+    <div class="container">
+        <h1>Voice Command Example</h1>
+        <button id="startButton">🎤 Start Listening</button>
+        <p id="status">Click the button and allow microphone access...</p>
+    </div>
 
     <script>
-        const openCameraButton = document.getElementById('openCameraButton');
-        const video = document.getElementById('video');
+        const startButton = document.getElementById('startButton');
         const status = document.getElementById('status');
 
-        openCameraButton.addEventListener('click', async () => {
-            // Requesting camera access
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                video.srcObject = stream;
-                status.textContent = "Camera is open. You can see the live stream.";
-            } catch (err) {
-                console.error(err);
-                if (err.name === "NotAllowedError") {
-                    status.textContent = "Error: Permission denied. Please allow camera access in your browser settings.";
-                } else if (err.name === "NotFoundError") {
-                    status.textContent = "Error: No camera device found.";
-                } else if (err.name === "NotReadableError") {
-                    status.textContent = "Error: Camera is in use by another application.";
+        if ('webkitSpeechRecognition' in window) {
+            const recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            startButton.addEventListener('click', () => {
+                recognition.start();
+                status.textContent = "Listening... Please speak.";
+            });
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript.toLowerCase();
+                status.textContent = "Command received: " + transcript;
+
+                if (transcript.includes('hello')) {
+                    alert('Hello! How can I assist you?');
+                } else if (transcript.includes('change color')) {
+                    document.body.style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+                } else if (transcript.includes('goodbye')) {
+                    alert('Goodbye!');
                 } else {
-                    status.textContent = "Error: Unable to access the camera.";
+                    alert('Unknown command: ' + transcript);
                 }
-            }
-        });
+            };
+
+            recognition.onerror = (event) => {
+                if (event.error === 'not-allowed') {
+                    status.textContent = "Microphone permission was denied. Please allow it.";
+                } else {
+                    status.textContent = "Error occurred: " + event.error;
+                }
+            };
+
+            recognition.onend = () => {
+                status.textContent = "Click the button to start listening again...";
+            };
+        } else {
+            status.textContent = "Your browser does not support speech recognition.";
+        }
     </script>
 </body>
 </html>
