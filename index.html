@@ -3,97 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voice Command Example</title>
+    <title>Do You Like Me? 💖</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, pink, white);
+            color: #333;
+            background:500px;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+            flex-direction: column;
+            overflow: hidden;
+             background-image:url('lovee.jpg');
+       background-size: cover;
         }
-
-        .container {
-            text-align: center;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        button {
-            background-color: #007bff;
+        h1 {
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            font-size: 3em;
+            margin-bottom: 20px;
         }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
         p {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #555;
+            font-size: 1.5em;
+            margin-top: -10px;
+        }
+        .buttons {
+           
+            margin-top: 30px;
+            position: relative;
+            width: 400px;
+            height: 100px;
+        }
+        button {
+                 padding: 10px 40px;
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            position: absolute;
+            box-shadow:6px 8px 8px grey;
+            border: 2px solid white;
+            }
+        button:hover {
+    opacity: 1;
+          
+    animation: bud 2s ease-in-out;
+}
+
+@keyframes bud {
+    0% { 
+       
+             opacity: 0;
+    }
+    100% {
+      
+        opacity: 1;
+    }
+     
+}
+        #yes-btn {
+              position: absolute;
+            left: 100px;
+            top: 30px;
+          animation: moveBlock 2s infinite;
+        }
+        @keyframes moveBlock {
+            0% {
+                background-color: pink;
+            }
+            50% {
+                background-color: white;
+            }
+            100% {
+                background-color: pink;
+            }
+        }
+        #no-btn {
+        
+        color:white
+         position: absolute;
+    left: 230px;
+    top: 30px;
+    }
+
+@keyframes move-left-right {
+    
+    100%{
+    
+        left: 80px;
+        position: absolute;
+        
+    }
+    
+        
+}
+@keyframes move-right-left {
+    0% {
+                background-color: pink;
+            }
+            50% {
+                background-color: white;
+            }
+            100% {left: 250px;
+        position: absolute;
+                background-color: pink;
+            }
+    
+}
+        footer {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.8em;
+            color: #666;
+         
+         animation: footer-block 2s infinite;    
+
+        }
+      @keyframes footer-block {
+            0% {
+                color: cyan;
+            }
+            50% {
+                color: red;
+            }
+            100% {
+                color: green;
+            }
+        }
+    .custom-alert {
+            display: none;
+            padding: 20px;
+            background-color: lightyellow;
+            border: 2px solid black;
+            width: 300px;
+border-radius:20px;
+position: absolute;
+top:320px;
+left:-10px;
+            text-align: center;
+            margin: 20px;
+        }
+        .custom-alert.show {
+            display: block;
+        }
+        .ask{
+       
+       width:350px;
+        height:60%;
+          border-radius:40px 60px 70px 200px;
+      }
+        .confetti {
+            position: absolute;
+             top:-10px;
+            width: 10px;
+            height: 10px;
+            
+            opacity: 0.9;
+            animation: confetti-fall 2s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+        }
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(950px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(100);
+    }
+}
+
+.slide-in {
+    opacity: 0; /* Start invisible */
+    animation: slideIn 2s forwards; /* Animate on trigger */
+}  
+#img2{
+display:none;
+position: fixed;
+top:120px;
+height:220px;
+width:300px;
+border-radius: 50px 120px 30px 130px;
+}
+    
+.blast {
+            position: absolute;
+             top:-10px;
+             left:-90px;
+            width: 10px;
+            height: 10px;
+            
+            opacity: 0.9;
+            animation: blast-out 4s linear infinite;
+        }
+
+        @keyframes blast-out {
+            0% {
+                transform: translateX(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vh) rotate(0deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Voice Command Example</h1>
-        <button id="startButton">🎤 Start Listening</button>
-        <p id="status">Click the button and allow microphone access...</p>
+
+<div class="blast"></div>
+<div class="ask slide-in ">
+    <h1>Hey Beautiful <br>  Do You Like Me? </h1>
+    <p>Come on, just tell me the truth!</p>
+ </div>
+<div class="buttons slide-in">
+        <button id="yes-btn" onclick="showAlert()">Yes</button>💌
+      
+<button id="no-btn" onclick="swapButtons()">No</button>
     </div>
+<div id="alert-box" class="custom-alert">
+<h3>Me too . thanks you made my day .......<h3>
+</div>
+<img id="img2" src="love3.jpg">
+<br><hr>
+    <footer ><h4> Created with 💖 just for Fun!  by ASK</h4></footer>
 
     <script>
-        const startButton = document.getElementById('startButton');
-        const status = document.getElementById('status');
 
-        if ('webkitSpeechRecognition' in window) {
-            const recognition = new webkitSpeechRecognition();
-            recognition.continuous = false;
-            recognition.interimResults = false;
-            recognition.lang = 'en-US';
 
-            startButton.addEventListener('click', () => {
-                recognition.start();
-                status.textContent = "Listening... Please speak.";
-            });
+    // Your code here
 
-            recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript.toLowerCase();
-                status.textContent = "Command received: " + transcript;
+        function swapButtons() {
+    // Get Yes and No buttons
+    var yesButton = document.getElementById('yes-btn');
+    var noButton = document.getElementById('no-btn');
+    
+    
+    // Add animation to the No button
+    noButton.style.position = 'absolute';  // Ensure it can be moved
+    noButton.style.left = '180px';         // Initial position
+    noButton.style.animation = 'move-left-right .8s linear forwards';  // Single movement, stops at 50px
+    
+    // Add animation to the Yes button
+    yesButton.style.position = 'absolute';  // Ensure it can be moved
+    yesButton.style.right = '180px';        // Initial position
+    yesButton.style.width = '15%';
+    
+    yesButton.style.animation = 'move-right-left 1s linear forwards';  // Single movement, stops at 50px
+     
+      var tempId = yesButton.id;
 
-                if (transcript.includes('hello')) {
-                    alert('Hello! How can I assist you?');
-                } else if (transcript.includes('change color')) {
-                    document.body.style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
-                } else if (transcript.includes('goodbye')) {
-                    alert('Goodbye!');
-                } else {
-                    alert('Unknown command: ' + transcript);
-                }
-            };
+    // Swap the IDs
+    yesButton.id = noButton.id;
+    
+    noButton.id = tempId;   
+    
+}
 
-            recognition.onerror = (event) => {
-                if (event.error === 'not-allowed') {
-                    status.textContent = "Microphone permission was denied. Please allow it.";
-                } else {
-                    status.textContent = "Error occurred: " + event.error;
-                }
-            };
+function showAlert() {
+        for (let i = 0; i < 100; i++) {
+                createConfetti();
+            }
+        var alertBox = document.getElementById('alert-box');
+        var img2 = document.getElementById('img2');
+        
+        alertBox.style.backgroundColor = 'lightblue'; // You can change the background color here
+        img2.style.display = 'block';
+        alertBox.style.display = 'block';
+        
+ setTimeout(() => {
+  
+ alertBox.style.display = 'none';
+  window.location.href = 'https://wa.me/918767565920?text=Hello%20!%20This%20is%20a%20crazy....well done%20.';
+      
+}, 5000); 
 
-            recognition.onend = () => {
-                status.textContent = "Click the button to start listening again...";
-            };
-        } else {
-            status.textContent = "Your browser does not support speech recognition.";
+  }// 3000 milliseconds = 3 seconds
+   
+       function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+
+            // Randomize position, color, and delay
+            confetti.innerHTML ="♥️";
+            confetti.style.left = Math.random() * 100 + 'vw';
+              confetti.style.animationDelay = Math.random() * 5 + 's';
+            
+            document.body.appendChild(confetti);
+
+            // Remove confetti after animation
+            setTimeout(() => {
+                confetti.remove();
+            }, 6000);
         }
-    </script>
+
+        // Generate multiple confetti pieces on page load
+        function blast() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('blast');
+
+            // Randomize position, color, and delay
+            confetti.innerHTML =" ♥️";
+            confetti.style.top = Math.random() * 100 + 'vw';
+               confetti.style.animationDelay = Math.random() * 5 + 's';
+            
+            document.body.appendChild(confetti);
+
+            // Remove confetti after animation
+            setTimeout(() => {
+                confetti.remove();
+            }, 6000);
+        }
+
+        // Generate multiple confetti pieces on page load
+        window.addEventListener('load', function() {
+            for (let i = 0; i < 100; i++) {
+                blast();
+            }
+        });
+
+ </script>
+
 </body>
-</html>
+</html>           
